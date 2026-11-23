@@ -38,65 +38,44 @@ Music
 
 Gallery photographs
 -------------------
-Placeholder photographs only — swap these for the couple’s own
-pictures before sharing.
+Placeholder photographs only: swap these for the couple's own
+pictures before sharing. All six are from Pexels and are free to
+use under the Pexels Licence (https://www.pexels.com/license/).
+Photo credit is not required by the licence but is given here.
 
-1. assets/gallery/photo-01.webp
-   Photographer: Asad’s Photography (Asad Photo Maldives)
-   Source: https://www.pexels.com/photo/1024993/
-   Licence: Pexels Licence (free to use, including commercially)
-            https://www.pexels.com/license/
+1. assets/gallery/photo-01.webp  Lilen Diaz
+   https://www.pexels.com/photo/newlywed-couple-in-garden-20311449/
+2. assets/gallery/photo-02.webp  Alexander Mass
+   https://www.pexels.com/photo/romantic-wedding-couple-in-garden-pathway-36723075/
+3. assets/gallery/photo-03.webp  Stephen Leonardi
+   https://www.pexels.com/photo/romantic-wedding-couple-under-stone-archway-32610511/
+4. assets/gallery/photo-04.webp  Kathrine Birch
+   https://www.pexels.com/photo/elegant-wedding-rings-in-soft-rose-bouquet-36069124/
+5. assets/gallery/photo-05.webp  Eyyup Gurel
+   https://www.pexels.com/photo/romantic-wedding-couple-at-golden-sunset-30335822/
+6. assets/gallery/photo-06.webp  Kha Ruxury
+   https://www.pexels.com/photo/married-couple-walking-on-a-field-holding-hands-11898101/
 
-2. assets/gallery/photo-02.webp
-   Photographer: Emma Bauso
-   Source: https://www.pexels.com/photo/2253870/
-   Licence: Pexels Licence
-            https://www.pexels.com/license/
-
-3. assets/gallery/photo-03.webp
-   Photographer: not named in the file’s metadata
-   Source: https://www.pexels.com/photo/1415131/
-   Licence: Pexels Licence
-            https://www.pexels.com/license/
-
-4. assets/gallery/photo-04.webp
-   Source: https://images.unsplash.com/photo-1583939003579-730e3918a45a
-           (Unsplash photo id photo-1583939003579-730e3918a45a)
-   Licence: Unsplash Licence
-            https://unsplash.com/license
-
-5. assets/gallery/photo-05.webp
-   Source: https://images.unsplash.com/photo-1591604466107-ec97de577aff
-           (Unsplash photo id photo-1591604466107-ec97de577aff)
-   Licence: Unsplash Licence
-            https://unsplash.com/license
-
-6. assets/gallery/photo-06.webp
-   Source: https://images.unsplash.com/photo-1537633552985-df8429e8048b
-           (Unsplash photo id photo-1537633552985-df8429e8048b)
-   Licence: Unsplash Licence
-            https://unsplash.com/license
-
-The photographer’s name was not embedded in files 4–6 (Unsplash
-CDN downloads often strip IPTC). Please credit the photographer
-shown on each Unsplash page if you keep these placeholders.
+The photos were cropped to 4:5 and compressed to WebP.
 
 Illustrations
 -------------
-The watercolor envelope, roses, floral corners, proposal scene,
-flower field, couple portrait, estate, wisteria-and-lanterns
-garland, and parent-card artwork were created as original
-illustrations for this invitation. They are not copies of a
-third-party wedding website.
+Everything in assets/images/ (floral corner, envelope flower
+cluster, sage paper texture, hero couple in the lavender field,
+arch couple, villa venue, lantern garland) was generated as new,
+original watercolor-style artwork for this invitation with an
+AI image generator, then cropped, background-cleaned and saved
+as WebP. The wax seal, envelope shapes and 3D flap are drawn in
+SVG/CSS. The og.jpg and favicons were rendered from the same
+artwork. No third-party artwork is used.
 
 Fonts
 -----
 Playfair Display, Montserrat and Great Vibes are loaded from
 Google Fonts under the SIL Open Font Licence.
 
-Palette (for designers)
------------------------
-Blush #fdf6f3, cream #fffdfb, rose #c94a63, script red #b4233a,
-kraft/gold #c4a074, sky #30afef (sampled to match the flower
-painting; the brief’s #2f6fd6 is kept as --sky-deep), footer
-blue #2a6a9a, navy #16344f.
+Palette (CSS variables at the top of styles.css)
+------------------------------------------------
+Ivory #fbf7f0, paper #fffdf8, ink #2f2c28, terracotta #b4563f,
+gold #b8935a, sage #9aae96, solid green band #2d6a58,
+soft green #a9c8bb, forest footer #14302a.

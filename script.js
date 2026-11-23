@@ -36,6 +36,9 @@ const CONTENT = {
   mapsUrl: "",
 
   /* Headlines & wording */
+  coverLine1: "you are",
+  coverLine2: "Invited",
+  tapHint: "Tap to open",
   heroEyebrow: "Together with our families",
   heroTagline: "Are getting married",
   parentsEyebrow: "With the blessings of",
@@ -75,12 +78,12 @@ const CONTENT = {
   /* Gallery photos live in assets/gallery/. Add or replace files
      and update this list — src is relative to index.html. */
   gallery: [
-    { src: "assets/gallery/photo-01.webp", alt: "The couple standing together in the ocean at sunset" },
-    { src: "assets/gallery/photo-02.webp", alt: "A close wedding-day portrait of the couple" },
-    { src: "assets/gallery/photo-03.webp", alt: "The couple watching the sunset together" },
-    { src: "assets/gallery/photo-04.webp", alt: "A kiss during the wedding ceremony" },
-    { src: "assets/gallery/photo-05.webp", alt: "The couple by the water in wedding attire" },
-    { src: "assets/gallery/photo-06.webp", alt: "The couple on a pebble beach with a flowing veil" }
+    { src: "assets/gallery/photo-01.webp", alt: "A bride and groom under a wooden triangle arch with a floral bouquet" },
+    { src: "assets/gallery/photo-02.webp", alt: "A couple embracing on a sunlit garden path lined with hydrangeas" },
+    { src: "assets/gallery/photo-03.webp", alt: "A couple embracing beneath an old stone archway" },
+    { src: "assets/gallery/photo-04.webp", alt: "Two wedding rings resting in a bouquet of peach roses" },
+    { src: "assets/gallery/photo-05.webp", alt: "A bride and groom silhouetted at golden sunset" },
+    { src: "assets/gallery/photo-06.webp", alt: "A newly married couple walking hand in hand through a field" }
   ]
 };
 
@@ -218,48 +221,84 @@ function startCountdown() {
   setInterval(tick, 1000);
 }
 
-/* ---- Envelope ---- */
+/* ---- Envelope ----
+   Sequence (ms): 0 flap folds up in 3D -> 720 card starts sliding out
+   -> 1850 card flies to the viewer while the envelope dissolves
+   -> 2750 invitation is revealed under the cover -> cover fades out.
+   The matching CSS transitions live in styles.css (.is-opening). */
+const T = { zoomAt: 1850, zoomDur: 950, revealAfterZoom: 80, cleanup: 800 };
+
 function setupEnvelope() {
   const btn = $("#openInvite");
-  const envelope = $("#envelope");
   const cover = $("#cover");
+  const envelope = $("#envelope");
+  const card = $("#inviteCard");
   const main = $("#invitation");
   if (!btn) return;
+
+  /* seal monogram from the names */
+  const initials = (CONTENT.groomName[0] || "") + "&" + (CONTENT.brideName[0] || "");
+  $all("#sealText, #sealTextTop").forEach((t) => (t.textContent = initials));
+
   let opened = false;
+
+  const finish = () => {
+    revealInvitation(cover, main);
+  };
 
   const open = () => {
     if (opened) return;
     opened = true;
-    cover.classList.add("is-opening");
-    envelope.classList.add("is-opening");
+    btn.disabled = true;
     startMusic();
-    const zoomDelay = reducedMotion ? 0 : 1100;
-    const hideDelay = reducedMotion ? 80 : 900;
+
+    if (reducedMotion) {
+      cover.classList.add("is-zooming");
+      setTimeout(finish, 120);
+      return;
+    }
+
+    cover.classList.add("is-opening");
+
     setTimeout(() => {
-      envelope.classList.add("is-zooming");
-      setTimeout(() => {
-        revealInvitation(cover, main);
-      }, hideDelay);
-    }, zoomDelay);
+      /* Fly the card to the centre of the screen, scaled to fit the width. */
+      const er = envelope.getBoundingClientRect();
+      const cr = card.getBoundingClientRect();
+      const cx = cr.left + cr.width / 2;
+      const cy = cr.top + cr.height / 2;
+      const scale = Math.min(
+        (window.innerWidth * 0.96) / cr.width,
+        (window.innerHeight * 0.9) / cr.height
+      );
+      const dx = window.innerWidth / 2 - cx;
+      const dy = window.innerHeight / 2 - cy;
+      envelope.style.transformOrigin = (cx - er.left) + "px " + (cy - er.top) + "px";
+      cover.classList.add("is-zooming");
+      const anim = envelope.animate(
+        [
+          { transform: "translate(0px, 0px) scale(1)" },
+          { transform: "translate(" + dx + "px, " + dy + "px) scale(" + scale + ")" }
+        ],
+        { duration: T.zoomDur, easing: "cubic-bezier(.65, 0, .3, 1)", fill: "forwards" }
+      );
+      anim.finished.then(() => setTimeout(finish, T.revealAfterZoom)).catch(finish);
+    }, T.zoomAt);
   };
 
   btn.addEventListener("click", open);
-  btn.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      open();
-    }
-  });
 }
 
 function revealInvitation(cover, main) {
   main.hidden = false;
-  document.body.classList.remove("is-locked");
-  cover.classList.add("is-gone");
-  $("#musicToggle").hidden = false;
-  /* after fade, remove cover from tab order */
-  setTimeout(() => { cover.setAttribute("hidden", ""); }, 800);
   window.scrollTo(0, 0);
+  document.body.classList.remove("is-locked");
+  /* next frame so the hero entrance animation starts as the cover fades */
+  requestAnimationFrame(() => {
+    document.body.classList.add("is-ready");
+    cover.classList.add("is-gone");
+  });
+  $("#musicToggle").hidden = false;
+  setTimeout(() => cover.setAttribute("hidden", ""), T.cleanup);
 }
 
 /* ---- Music ---- */
@@ -270,11 +309,9 @@ function startMusic() {
   audio.volume = 0.55;
   const play = () => {
     audio.play().then(() => {
-      toggle.hidden = false;
       toggle.classList.remove("is-muted");
       toggle.setAttribute("aria-pressed", "true");
     }).catch(() => {
-      toggle.hidden = false;
       toggle.classList.add("is-muted");
       toggle.setAttribute("aria-pressed", "false");
     });
@@ -322,15 +359,15 @@ function setupGallery() {
     const slide = $(".car-slide", root);
     if (!slide) return viewport.clientWidth;
     /* include padding via offsetWidth */
-    return slide.getBoundingClientRect().width;
+    return slide.offsetWidth;
   }
 
   function peekOffset() {
     const viewport = $(".car-viewport", root);
     const slide = $(".car-slide", root);
-    if (!slide || window.innerWidth < 768) return 0;
+    if (!slide) return 0;
     /* centre the active slide so neighbours peek */
-    return (viewport.clientWidth - slide.getBoundingClientRect().width) / 2;
+    return (viewport.clientWidth - slide.offsetWidth) / 2;
   }
 
   function go(i) {
@@ -338,6 +375,7 @@ function setupGallery() {
     const x = index * slideWidth() - peekOffset();
     track.style.transform = "translateX(" + -x + "px)";
     $all("button", dots).forEach((d, k) => d.classList.toggle("is-on", k === index));
+    $all(".car-slide", track).forEach((el, k) => el.classList.toggle("is-active", k === index));
   }
 
   $("[data-prev]", root)?.addEventListener("click", () => go(index - 1));

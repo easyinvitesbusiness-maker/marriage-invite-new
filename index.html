@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>John &amp; Jane are getting married</title>
   <meta name="description" content="You are invited to the wedding of John and Jane. Saturday, 12 December 2027 at The Grand Estate.">
-  <meta name="theme-color" content="#fdf6f3">
+  <meta name="theme-color" content="#fbf7f0">
   <meta property="og:type" content="website">
   <meta property="og:title" content="John &amp; Jane are getting married">
   <meta property="og:description" content="You are invited. Saturday, 12 December 2027 at The Grand Estate.">
@@ -18,59 +18,81 @@
   <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="is-locked">
   <a class="skip-link" href="#invitation">Skip to invitation</a>
 
-  <!-- ============ COVER / ENVELOPE ============ -->
+  <!-- ============ COVER: ENVELOPE ============ -->
   <div id="cover" class="cover" role="dialog" aria-label="Wedding invitation envelope">
-    <div class="cover-bg" aria-hidden="true">
-      <img class="floral floral-tl" src="assets/images/floral-tl.webp" alt="">
-      <img class="floral floral-br" src="assets/images/floral-br.webp" alt="">
-      <svg class="heart heart-tr" viewBox="0 0 32 30" aria-hidden="true">
-        <path d="M16 27 C16 27 3 18 3 10.5 C3 6.4 6.4 3.5 10 3.5 C12.3 3.5 14.4 4.7 16 6.6 C17.6 4.7 19.7 3.5 22 3.5 C25.6 3.5 29 6.4 29 10.5 C29 18 16 27 16 27 Z" fill="none" stroke="#d7b8b8" stroke-width="0.9"/>
-      </svg>
-      <svg class="heart heart-bl" viewBox="0 0 32 30" aria-hidden="true">
-        <path d="M16 27 C16 27 3 18 3 10.5 C3 6.4 6.4 3.5 10 3.5 C12.3 3.5 14.4 4.7 16 6.6 C17.6 4.7 19.7 3.5 22 3.5 C25.6 3.5 29 6.4 29 10.5 C29 18 16 27 16 27 Z" fill="none" stroke="#e0c4c4" stroke-width="0.9"/>
-      </svg>
-    </div>
+    <img class="cover-floral tl" src="assets/images/floral-corner.webp" alt="">
+    <img class="cover-floral br" src="assets/images/floral-corner.webp" alt="">
 
-    <button type="button" id="openInvite" class="envelope-stage" aria-label="Tap to open the invitation">
-      <div class="envelope" id="envelope">
-        <img class="layer env-open" src="assets/images/envelope-open.webp" alt="">
-        <article class="invite-card" id="inviteCard">
-          <div class="card-inner">
-            <p class="card-hearts" aria-hidden="true">♥&nbsp;&nbsp;♥</p>
-            <p class="card-you">you are</p>
-            <h1 class="card-invited">Invited</h1>
-            <p class="card-flourish" aria-hidden="true">❧</p>
-          </div>
-        </article>
-        <img class="layer env-closed" src="assets/images/envelope-closed.webp" alt="A watercolor kraft envelope sealed with a pink heart and roses">
-        <div class="flap-wrap" aria-hidden="true">
-          <img class="layer env-flap" src="assets/images/envelope-flap.webp" alt="">
-        </div>
-        <img class="layer env-roses" src="assets/images/roses.webp" alt="">
-      </div>
-      <span class="tap-hint">Tap to open</span>
+    <button type="button" id="openInvite" class="stage" aria-label="Tap to open the invitation">
+      <span class="env" id="envelope">
+        <span class="env-shadow"></span>
+        <span class="env-back"></span>
+
+        <!-- the card sits between the back and the front pocket -->
+        <span class="env-card" id="inviteCard">
+          <span class="card-frame">
+            <span class="card-hearts" aria-hidden="true">&#9829; &#9829;</span>
+            <span class="card-you" data-bind="coverLine1">you are</span>
+            <span class="card-invited" data-bind="coverLine2">Invited</span>
+          </span>
+        </span>
+
+        <!-- front pocket: everything below the V fold -->
+        <span class="env-front">
+          <span class="front-shape"></span>
+          <svg class="front-folds" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="0" y1="200" x2="150" y2="112" />
+            <line x1="300" y1="200" x2="150" y2="112" />
+          </svg>
+        </span>
+
+        <!-- flap: folds up in 3D from its top edge -->
+        <span class="env-flap" id="flap">
+          <span class="flap-face flap-out"></span>
+          <span class="flap-face flap-in"></span>
+          <svg class="seal" viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <radialGradient id="waxG" cx="38%" cy="32%" r="75%">
+                <stop offset="0" stop-color="#d9826a"/>
+                <stop offset="0.55" stop-color="#b4563f"/>
+                <stop offset="1" stop-color="#8a3a2a"/>
+              </radialGradient>
+            </defs>
+            <path d="M50 4c7 0 9 5 15 6 7 1 12 2 16 9 3 6 1 10 4 16 3 6 9 9 8 17-1 7-8 9-10 15-3 7-2 14-9 18-6 4-12 0-19 2-7 1-9 7-17 5-7-2-9-8-14-12-6-5-14-4-17-12-3-7 3-13 2-20-1-7-9-11-6-19 3-7 10-6 15-11 5-5 7-12 14-14 4-1 7-1 11-1z" fill="url(#waxG)"/>
+            <circle cx="50" cy="51" r="31" fill="none" stroke="rgba(255,225,205,.45)" stroke-width="1.2"/>
+            <text id="sealText" x="50" y="63" text-anchor="middle" font-family="Great Vibes, cursive" font-size="34" fill="#7a2f20" opacity=".55" transform="translate(1,1.2)">J&amp;J</text>
+            <text id="sealTextTop" x="50" y="63" text-anchor="middle" font-family="Great Vibes, cursive" font-size="34" fill="#f6dccb">J&amp;J</text>
+          </svg>
+        </span>
+
+        <img class="env-sprig" src="assets/images/envelope-sprig.webp" alt="">
+      </span>
+      <span class="tap-hint" data-bind="tapHint">Tap to open</span>
     </button>
   </div>
 
   <!-- ============ INVITATION ============ -->
   <main id="invitation" class="invitation" hidden>
+
     <section class="hero" id="hero">
-      <p class="eyebrow" data-bind="heroEyebrow">Together with our families</p>
-      <h2 class="names">
-        <span data-bind="groomName">John</span>
-        <span class="amp" aria-hidden="true">&amp;</span>
-        <span data-bind="brideName">Jane</span>
-      </h2>
-      <p class="hero-tag" data-bind="heroTagline">Are getting married</p>
-      <p class="hero-date" data-bind="dateDotted">12 . 12 . 2027</p>
-      <div class="hero-art">
-        <img src="assets/images/hero-proposal.webp" alt="A painted illustration of a proposal in a sunlit garden courtyard">
+      <div class="hero-text">
+        <p class="eyebrow" data-bind="heroEyebrow">Together with our families</p>
+        <h1 class="names">
+          <span data-bind="groomName">John</span>
+          <span class="amp" aria-hidden="true">&amp;</span>
+          <span data-bind="brideName">Jane</span>
+        </h1>
+        <p class="hero-tag" data-bind="heroTagline">Are getting married</p>
+        <p class="hero-date" data-bind="dateDotted">12 . 12 . 2027</p>
+      </div>
+      <div class="arch hero-art">
+        <img src="assets/images/hero-couple.webp" alt="A watercolor painting of a bride and groom walking hand in hand through a lavender field at sunset" width="814" height="1084">
       </div>
     </section>
 
@@ -81,65 +103,55 @@
         <article class="parent-card">
           <p class="parent-label" data-bind="groomParentsLabel">Parents of the Groom</p>
           <p class="parent-names">
-            <span data-bind="groomFather">Robert</span>
-            <span class="amp">&amp;</span>
-            <span data-bind="groomMother">Linda Smith</span>
+            <span data-bind="groomFather">Robert</span> <span class="amp">&amp;</span> <span data-bind="groomMother">Linda Smith</span>
           </p>
         </article>
         <article class="parent-card">
           <p class="parent-label" data-bind="brideParentsLabel">Parents of the Bride</p>
           <p class="parent-names">
-            <span data-bind="brideFather">Michael</span>
-            <span class="amp">&amp;</span>
-            <span data-bind="brideMother">Susan Doe</span>
+            <span data-bind="brideFather">Michael</span> <span class="amp">&amp;</span> <span data-bind="brideMother">Susan Doe</span>
           </p>
         </article>
       </div>
       <p class="invite-copy" data-bind="inviteText">With grateful hearts and the blessings of our parents, we invite you to celebrate the beginning of our forever.</p>
-      <div class="swirl" aria-hidden="true">
-        <svg viewBox="0 0 200 20" width="160" height="20">
-          <path d="M4 10 C30 10 30 4 50 10 S70 16 100 10 S130 4 150 10 S170 16 196 10" fill="none" stroke="#c9a07a" stroke-width="0.9"/>
-          <circle cx="100" cy="10" r="2.2" fill="#c94a63" opacity="0.85"/>
-        </svg>
-      </div>
+      <div class="rule" aria-hidden="true"><i></i></div>
     </section>
 
-    <section class="save-date">
-      <div class="sky-block">
-        <div class="info-card reveal">
+    <section class="band">
+      <div class="band-row reveal">
+        <div class="band-text">
           <p class="eyebrow light" data-bind="saveTheDateEyebrow">Save the date</p>
           <p class="sd-weekday" data-bind="dateWeekdayLine">Saturday, December</p>
           <p class="sd-day" data-bind="dateDayYear">12, 2027</p>
           <p class="sd-time" data-bind="timeDisplay">At 4:00 PM</p>
-          <p class="sd-venue script" data-bind="venueName">The Grand Estate</p>
+          <p class="sd-venue" data-bind="venueName">The Grand Estate</p>
         </div>
-        <img class="flowers-img" src="assets/images/std-flowers.webp" alt="Colorful wildflowers against a bright blue sky">
+        <div class="arch arch-light">
+          <img src="assets/images/arch-couple.webp" alt="A watercolor painting of a couple embracing under a round arch of roses and eucalyptus" width="814" height="1084" loading="lazy">
+        </div>
       </div>
-      <div class="couple-block">
-        <img src="assets/images/std-couple.webp" alt="A painted portrait of the couple standing close against a sunlit wall">
-      </div>
-    </section>
 
-    <section class="venue">
-      <div class="info-card reveal">
-        <p class="eyebrow light" data-bind="venueEyebrow">The venue</p>
-        <h2 class="venue-name" data-bind="venueName">The Grand Estate</h2>
-        <p class="venue-address" data-bind="venueAddress">123 Wedding Lane, Romantic City</p>
-        <a class="btn-pill" id="directionsBtn" href="#" target="_blank" rel="noopener">Get directions</a>
-      </div>
-      <div class="estate-wrap">
-        <img src="assets/images/estate.webp" alt="A painted illustration of a grand country estate and garden staircase">
+      <div class="band-row band-row-venue reveal" id="venue">
+        <div class="venue-art">
+          <img src="assets/images/venue-villa.webp" alt="A watercolor painting of a villa with a terracotta roof, cypress trees and potted olive trees" width="1100" height="825" loading="lazy">
+        </div>
+        <div class="band-text">
+          <p class="eyebrow light" data-bind="venueEyebrow">The venue</p>
+          <h2 class="venue-name" data-bind="venueName">The Grand Estate</h2>
+          <p class="venue-address" data-bind="venueAddress">123 Wedding Lane, Romantic City</p>
+          <a class="btn btn-light" id="directionsBtn" href="#" target="_blank" rel="noopener">Get directions</a>
+        </div>
       </div>
     </section>
 
     <section class="calendar-sec">
-      <img class="wisteria" src="assets/images/wisteria.webp" alt="">
+      <img class="lanterns" src="assets/images/lanterns.webp" alt="" loading="lazy">
       <div class="calendar-inner reveal">
         <h2 class="script-title" data-bind="calendarTitle">Save the Date</h2>
         <p class="calendar-copy" data-bind="calendarText">We would love for you to join us on our special day.</p>
-        <div class="cal-actions">
-          <a class="btn-pill" id="gcalBtn" href="#" target="_blank" rel="noopener">Add to Google Calendar</a>
-          <button type="button" class="btn-pill btn-ghost" id="icsBtn">Download .ics file</button>
+        <div class="actions">
+          <a class="btn" id="gcalBtn" href="#" target="_blank" rel="noopener">Add to Google Calendar</a>
+          <button type="button" class="btn btn-ghost" id="icsBtn">Download .ics file</button>
         </div>
       </div>
     </section>
@@ -148,60 +160,45 @@
       <p class="eyebrow" data-bind="galleryEyebrow">Our moments</p>
       <h2 class="serif-title" data-bind="galleryTitle">Gallery</h2>
       <div class="carousel" data-carousel>
-        <button type="button" class="car-btn prev" data-prev aria-label="Previous photo">
-          <span aria-hidden="true">‹</span>
-        </button>
         <div class="car-viewport">
-          <div class="car-track" data-track>
-            <!-- slides injected from CONTENT.gallery -->
-          </div>
+          <div class="car-track" data-track><!-- slides are built from CONTENT.gallery --></div>
         </div>
-        <button type="button" class="car-btn next" data-next aria-label="Next photo">
-          <span aria-hidden="true">›</span>
-        </button>
+        <button type="button" class="car-btn prev" data-prev aria-label="Previous photo"><span aria-hidden="true">&#8249;</span></button>
+        <button type="button" class="car-btn next" data-next aria-label="Next photo"><span aria-hidden="true">&#8250;</span></button>
         <div class="car-dots" data-dots></div>
       </div>
     </section>
 
     <section class="rsvp-sec" id="rsvp">
-      <img class="floral floral-tl" src="assets/images/floral-tl.webp" alt="">
-      <img class="floral floral-br" src="assets/images/floral-br.webp" alt="">
+      <img class="rsvp-floral" src="assets/images/floral-corner.webp" alt="" loading="lazy">
       <div class="rsvp-inner reveal">
         <p class="eyebrow" data-bind="rsvpEyebrow">Will you join us?</p>
         <h2 class="serif-title" data-bind="rsvpTitle">RSVP</h2>
 
         <form id="rsvpForm" class="rsvp-form" novalidate>
-          <label>
-            <span>Full name</span>
-            <input type="text" name="name" autocomplete="name" required placeholder="Your Name">
-          </label>
-          <label>
-            <span>Email address</span>
-            <input type="email" name="email" autocomplete="email" required placeholder="your@email.com">
-          </label>
-          <label>
-            <span>Will you attend?</span>
+          <label><span>Full name</span>
+            <input type="text" name="name" autocomplete="name" required placeholder="Your name"></label>
+          <label><span>Email address</span>
+            <input type="email" name="email" autocomplete="email" required placeholder="you@example.com"></label>
+          <label><span>Will you attend?</span>
             <select name="attend" required>
-              <option value="" selected disabled>Please select…</option>
+              <option value="" selected disabled>Please select&hellip;</option>
               <option value="joyfully attending">Joyfully attending</option>
               <option value="attending with a guest">Attending with a guest</option>
               <option value="regretfully cannot attend">Regretfully cannot attend</option>
-            </select>
-          </label>
-          <label>
-            <span>Special requests / message</span>
-            <textarea name="message" rows="4" placeholder="Any dietary restrictions or notes…"></textarea>
-          </label>
-          <button type="submit" class="btn-pill">Send RSVP</button>
+            </select></label>
+          <label><span>Message</span>
+            <textarea name="message" rows="3" placeholder="Dietary needs or a note for us&hellip;"></textarea></label>
+          <button type="submit" class="btn">Send RSVP</button>
         </form>
 
         <div id="rsvpThanks" class="rsvp-thanks" hidden>
           <p class="thanks-lead">Thank you, <strong data-thanks-name></strong>.</p>
-          <p>Your RSVP has been saved on this device. There is no online inbox yet — please send it on to us with one of the buttons below.</p>
-          <p class="placeholder-note">The WhatsApp number and email on these buttons are placeholders. Update them in <code>script.js</code>.</p>
-          <div class="cal-actions">
-            <a class="btn-pill" id="rsvpWhatsApp" href="#" target="_blank" rel="noopener">Send via WhatsApp</a>
-            <a class="btn-pill btn-ghost" id="rsvpMailto" href="#">Send via email</a>
+          <p>Your RSVP is saved on this device. There is no online inbox yet, so please send it on with one of the buttons below.</p>
+          <p class="placeholder-note">Placeholder contacts: update the WhatsApp number and email in <code>script.js</code>.</p>
+          <div class="actions">
+            <a class="btn" id="rsvpWhatsApp" href="#" target="_blank" rel="noopener">Send via WhatsApp</a>
+            <a class="btn btn-ghost" id="rsvpMailto" href="#">Send via email</a>
           </div>
         </div>
       </div>
@@ -216,30 +213,15 @@
         <div class="tick"><span class="n" data-mins>0</span><span class="l">Minutes</span></div>
         <div class="tick"><span class="n" data-secs>0</span><span class="l">Seconds</span></div>
       </div>
-      <div class="footer-end">
-        <p class="footer-names">
-          <span data-bind="groomName">John</span>
-          <span class="amp">&amp;</span>
-          <span data-bind="brideName">Jane</span>
-        </p>
-        <p class="footer-date" data-bind="dateDotted">12 . 12 . 2027</p>
-        <p class="footer-hash" data-bind="hashtag">#JohnAndJane2027</p>
-      </div>
+      <p class="footer-names"><span data-bind="groomName">John</span> <span class="amp">&amp;</span> <span data-bind="brideName">Jane</span></p>
+      <p class="footer-date" data-bind="dateDotted">12 . 12 . 2027</p>
+      <p class="footer-hash" data-bind="hashtag">#JohnAndJane2027</p>
     </footer>
   </main>
 
   <button type="button" id="musicToggle" class="music-toggle" aria-label="Toggle background music" aria-pressed="false" hidden>
-    <svg class="icon-on" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-      <path fill="currentColor" d="M9 18V6l12-2v12"/>
-      <circle cx="7" cy="18" r="3" fill="currentColor"/>
-      <circle cx="19" cy="16" r="3" fill="currentColor"/>
-    </svg>
-    <svg class="icon-off" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-      <path fill="currentColor" d="M9 18V6l12-2v12"/>
-      <circle cx="7" cy="18" r="3" fill="currentColor"/>
-      <circle cx="19" cy="16" r="3" fill="currentColor"/>
-      <path stroke="currentColor" stroke-width="1.7" d="M3 3l18 18"/>
-    </svg>
+    <svg class="icon-on" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M9 18V6l12-2v12"/><circle cx="7" cy="18" r="3" fill="currentColor"/><circle cx="19" cy="16" r="3" fill="currentColor"/></svg>
+    <svg class="icon-off" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M9 18V6l12-2v12"/><circle cx="7" cy="18" r="3" fill="currentColor"/><circle cx="19" cy="16" r="3" fill="currentColor"/><path stroke="currentColor" stroke-width="1.7" d="M3 3l18 18"/></svg>
   </button>
 
   <audio id="bgMusic" src="assets/music.mp3" loop preload="auto"></audio>
