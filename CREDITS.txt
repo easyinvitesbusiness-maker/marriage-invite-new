@@ -1,0 +1,102 @@
+Wedding invitation — credits, licences, and how to edit
+=======================================================
+
+How to edit the wording
+-----------------------
+Open script.js and change the CONTENT object at the very top.
+That object is the only place you need to touch for:
+
+  • names (couple and parents)
+  • date, time and timezone
+  • venue name and address (and an optional Google Maps URL)
+  • all headlines and invitation wording
+  • the hashtag
+  • RSVP email and WhatsApp number (these are placeholders)
+  • gallery photo paths and captions
+
+Reload the page after you save. The countdown, “Add to Google
+Calendar” link, the downloadable .ics file and the Get Directions
+link are all rebuilt from CONTENT automatically.
+
+Replace the placeholder photos in assets/gallery/ with your own
+and update the CONTENT.gallery list to match.
+
+To change the background music, replace assets/music.mp3 with
+another track (keep the same filename, or update the <audio>
+tag in index.html).
+
+Music
+-----
+“Gymnopedie No 1”
+  Recording and arrangement: Kevin MacLeod (incompetech.com)
+  Licence: Creative Commons Attribution 3.0
+           https://creativecommons.org/licenses/by/3.0/
+  Composition: Erik Satie — public domain
+  Source: https://incompetech.com/music/royalty-free/mp3-royaltyfree/Gymnopedie%20No%201.mp3
+  The copy in assets/music.mp3 was transcoded to 128 kbps MP3
+  for a smaller download; the credit is unchanged.
+
+Gallery photographs
+-------------------
+Placeholder photographs only — swap these for the couple’s own
+pictures before sharing.
+
+1. assets/gallery/photo-01.webp
+   Photographer: Asad’s Photography (Asad Photo Maldives)
+   Source: https://www.pexels.com/photo/1024993/
+   Licence: Pexels Licence (free to use, including commercially)
+            https://www.pexels.com/license/
+
+2. assets/gallery/photo-02.webp
+   Photographer: Emma Bauso
+   Source: https://www.pexels.com/photo/2253870/
+   Licence: Pexels Licence
+            https://www.pexels.com/license/
+
+3. assets/gallery/photo-03.webp
+   Photographer: not named in the file’s metadata
+   Source: https://www.pexels.com/photo/1415131/
+   Licence: Pexels Licence
+            https://www.pexels.com/license/
+
+4. assets/gallery/photo-04.webp
+   Source: https://images.unsplash.com/photo-1583939003579-730e3918a45a
+           (Unsplash photo id photo-1583939003579-730e3918a45a)
+   Licence: Unsplash Licence
+            https://unsplash.com/license
+
+5. assets/gallery/photo-05.webp
+   Source: https://images.unsplash.com/photo-1591604466107-ec97de577aff
+           (Unsplash photo id photo-1591604466107-ec97de577aff)
+   Licence: Unsplash Licence
+            https://unsplash.com/license
+
+6. assets/gallery/photo-06.webp
+   Source: https://images.unsplash.com/photo-1537633552985-df8429e8048b
+           (Unsplash photo id photo-1537633552985-df8429e8048b)
+   Licence: Unsplash Licence
+            https://unsplash.com/license
+
+The photographer’s name was not embedded in files 4–6 (Unsplash
+CDN downloads often strip IPTC). Please credit the photographer
+shown on each Unsplash page if you keep these placeholders.
+
+Illustrations
+-------------
+The watercolor envelope, roses, floral corners, proposal scene,
+flower field, couple portrait, estate, wisteria-and-lanterns
+garland, and parent-card artwork were created as original
+illustrations for this invitation. They are not copies of a
+third-party wedding website.
+
+Fonts
+-----
+Playfair Display, Montserrat and Great Vibes are loaded from
+Google Fonts under the SIL Open Font Licence.
+
+Palette (for designers)
+-----------------------
+Blush #fdf6f3, cream #fffdfb, rose #c94a63, script red #b4233a,
+kraft/gold #c4a074, sky #30afef (sampled to match the flower
+painting; the brief’s #2f6fd6 is kept as --sky-deep), footer
+blue #2a6a9a, navy #16344f.
